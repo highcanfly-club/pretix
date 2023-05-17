@@ -33,8 +33,12 @@ as well as the type of underlying hardware. Example:
        "hardware_brand": "Samsung",
        "hardware_model": "Galaxy S",
        "software_brand": "pretixdroid",
-       "software_version": "4.0.0"
+       "software_version": "4.0.0",
+       "rsa_pubkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqh…nswIDAQAB\n-----END PUBLIC KEY-----\n"
    }
+
+The ``rsa_pubkey`` is optional any only required for certain fatures such as working with reusable
+media and NFC cryptography.
 
 Every initialization token can only be used once. On success, you will receive a response containing
 information on your device as well as your API token:
@@ -132,6 +136,12 @@ The response will look like this:
        "gate": {
          "id": 3,
          "name": "South entrance"
+       }
+     },
+     "server": {
+       "version": {
+         "pretix": "3.6.0.dev0",
+         "pretix_numeric": 30060001000
        }
      }
    }
