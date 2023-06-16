@@ -30,6 +30,14 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: PRETIX_HOST
+              value: {{ .Values.ingress.host }}
+            - name: MASTER_ADMIN_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: pretix-credentials
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.DEVMODE }}
           command: ["/bin/sh","-c"]
@@ -40,15 +48,26 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          volumeMounts:
+            - name: lv-storage
+              mountPath: /data
           {{- if not .Values.DEVMODE }}
           livenessProbe:
+            initialDelaySeconds: 180
             httpGet:
-              path: /
-              port: http
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
           readinessProbe:
+            initialDelaySeconds: 180
             httpGet:
-              path: /
-              port: http
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -64,3 +83,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: lv-storage
+          persistentVolumeClaim:
+            claimName: pvc-pretix
