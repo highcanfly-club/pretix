@@ -29,11 +29,12 @@ yaml = helm(
 k8s_yaml(yaml)
 
 custom_build('highcanfly/pretix','./kaniko-build.sh',[
-  'developer', './docker-entrypoint.sh'
+  'developer', './docker-entrypoint.sh','./data'
 ],skips_local_docker=True, 
   live_update=[
     sync('./developer/pretix', '/etc/pretix'),
-    sync('./docker-entrypoint.sh','/usr/local/bin/docker-entrypoint.sh')
+    sync('./docker-entrypoint.sh','/usr/local/bin/docker-entrypoint.sh'),
+    sync('./data','/data')
 ])
 
 
