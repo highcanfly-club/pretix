@@ -73,6 +73,10 @@ RUN chmod +x /usr/local/bin/pretix && \
     chown -R pretixuser:pretixuser /pretix /data data && \
 	sudo -u pretixuser make production
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+# Development
+COPY pretix-sumup /pretix-sumup
+RUN cd /pretix-sumup && python setup.py develop
+# end
 RUN chmod ugo+x /usr/local/bin/docker-entrypoint.sh
 # USER pretixuser
 VOLUME ["/etc/pretix", "/data"]

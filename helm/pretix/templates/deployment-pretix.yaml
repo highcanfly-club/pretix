@@ -51,7 +51,7 @@ spec:
           volumeMounts:
             - name: lv-storage
               mountPath: /data
-          {{- if not .Values.DEVMODE }}
+          {{- if .Values.HEALTHCHECK }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.image.startingTime}}
             httpGet:

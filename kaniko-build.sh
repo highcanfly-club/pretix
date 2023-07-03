@@ -12,6 +12,7 @@ tar -cv --exclude "node_modules" \
   --exclude ".git" --exclude ".github" --exclude-vcs \
   --exclude ".docker" \
   --exclude "_sensitive_datas" \
+  --exclude "._*" \
   --exclude "build" -f - . | gzip -9 | kubectl run -n $NAMESPACE kaniko \
   --rm --stdin=true \
   --image=highcanfly/kaniko:latest --restart=Never \

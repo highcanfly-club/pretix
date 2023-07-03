@@ -1,0 +1,8 @@
+{% load i18n %}
+{% load bootstrap3 %}
+<p>{% blocktrans trimmed %}
+    Sumup is not currently available
+    {% endblocktrans %}</p>
+<script>
+    document.querySelector('button[type="submit"]').disabled = true;
+</script>
