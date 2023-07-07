@@ -1,5 +1,0 @@
-[plugin]
-package = "pretix-sumup"
-modules = [ "pretix_sumup" ]
-marketplace_name = "sumup"
-
