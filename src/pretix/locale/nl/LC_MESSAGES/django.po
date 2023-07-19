@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-27 12:51+0000\n"
-"PO-Revision-Date: 2023-06-07 15:04+0000\n"
-"Last-Translator: Thomas Vranken <thvranken@gmail.com>\n"
-"Language-Team: Dutch <https://translate.pretix.eu/projects/pretix/pretix/nl/"
-">\n"
+"PO-Revision-Date: 2023-07-16 22:00+0000\n"
+"Last-Translator: Freek Engelbarts <freekengelbarts@gmail.com>\n"
+"Language-Team: Dutch <https://translate.pretix.eu/projects/pretix/pretix/nl/>"
+"\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "Chinees (versimpeld)"
 
 #: pretix/_base_settings.py:83
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Chinees (traditioneel)"
 
 #: pretix/_base_settings.py:84
 msgid "Czech"
@@ -522,22 +522,16 @@ msgid "Test-Mode of shop has been deactivated"
 msgstr "Testmode van winkel gedeactiveerd"
 
 #: pretix/api/webhooks.py:339
-#, fuzzy
-#| msgid "Waiting list entry"
 msgid "Waiting list entry added"
-msgstr "Wachtlijstitem"
+msgstr "Wachtlijstitem toegevoegd"
 
 #: pretix/api/webhooks.py:343
-#, fuzzy
-#| msgid "Waiting list entry"
 msgid "Waiting list entry changed"
-msgstr "Wachtlijstitem"
+msgstr "Wachtlijstitem aangepast"
 
 #: pretix/api/webhooks.py:347
-#, fuzzy
-#| msgid "Waiting list entry"
 msgid "Waiting list entry deleted"
-msgstr "Wachtlijstitem"
+msgstr "Wachtlijstitem verwijderd"
 
 #: pretix/api/webhooks.py:351
 #, fuzzy
@@ -1679,7 +1673,7 @@ msgstr "Toon alleen met geldig lidmaatschap"
 
 #: pretix/base/exporters/json.py:51 pretix/base/exporters/orderlist.py:85
 msgid "Order data"
-msgstr "Besteldatums"
+msgstr "Bestelgegevens"
 
 #: pretix/base/exporters/json.py:53
 msgid ""
@@ -3199,11 +3193,9 @@ msgid "Modern Invoice Renderer (pretix 2.7)"
 msgstr "Moderne factuurrenderer (pretix 2.7)"
 
 #: pretix/base/invoice.py:947
-#, fuzzy
-#| msgid "Please enter a valid state."
 msgctxt "invoice"
 msgid "(Please quote at all times.)"
-msgstr "Kies een geldige staat."
+msgstr "(Gelieve steeds te vermelden.)"
 
 #: pretix/base/media.py:58
 msgid "Barcode / QR-Code"
@@ -6559,7 +6551,7 @@ msgstr "Productcategorie"
 
 #: pretix/base/pdf.py:151 pretix/base/pdf.py:156
 msgid "123.45 EUR"
-msgstr "123,45 EUR"
+msgstr "€123,45"
 
 #: pretix/base/pdf.py:155
 msgid "Price including add-ons"
@@ -16069,7 +16061,7 @@ msgstr "Meldingen"
 
 #: pretix/control/navigation.py:390
 msgid "2FA"
-msgstr "2FA"
+msgstr "tweefactorauthenticatie"
 
 #: pretix/control/navigation.py:395
 msgid "Authorized apps"
@@ -20400,7 +20392,7 @@ msgstr ""
 
 #: pretix/control/templates/pretixcontrol/order/change.html:250
 msgid "–"
-msgstr ""
+msgstr "-"
 
 #: pretix/control/templates/pretixcontrol/order/change.html:274
 #, fuzzy
@@ -31047,10 +31039,8 @@ msgstr "Toon volgende week, %(week)s"
 #: pretix/presale/templates/pretixpresale/fragment_week_calendar.html:57
 #: pretix/presale/templates/pretixpresale/organizers/index.html:85
 #: pretix/presale/views/widget.py:376
-#, fuzzy
-#| msgid "PDF ticket layout"
 msgid "Few tickets left"
-msgstr "PDF-ticketlay-out"
+msgstr "Laatste kaarten"
 
 #: pretix/presale/templates/pretixpresale/event/fragment_subevent_list.html:28
 #: pretix/presale/templates/pretixpresale/fragment_calendar.html:75
@@ -31058,11 +31048,9 @@ msgstr "PDF-ticketlay-out"
 #: pretix/presale/templates/pretixpresale/fragment_week_calendar.html:60
 #: pretix/presale/templates/pretixpresale/organizers/index.html:88
 #: pretix/presale/views/widget.py:381
-#, fuzzy
-#| msgid "Pay now"
 msgctxt "available_event_in_list"
 msgid "Buy now"
-msgstr "Betaal nu"
+msgstr "Koop nu"
 
 #: pretix/presale/templates/pretixpresale/event/fragment_subevent_list.html:30
 #: pretix/presale/templates/pretixpresale/event/fragment_subevent_list.html:45
