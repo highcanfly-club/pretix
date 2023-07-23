@@ -72,7 +72,7 @@ RUN chmod +x /usr/local/bin/pretix && \
 	mkdir -p data && \
     chown -R pretixuser:pretixuser /pretix /data data && \
 	sudo -u pretixuser make production
-RUN pip install pretix-fontpack-free install pretix-passbook && \
+RUN pip install pretix-fontpack-free install pretix-passbook pretix-sumup && \
     python -m pretix migrate && \
     python -m pretix rebuild
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
