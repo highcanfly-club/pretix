@@ -72,7 +72,8 @@ RUN chmod +x /usr/local/bin/pretix && \
 	mkdir -p data && \
     chown -R pretixuser:pretixuser /pretix /data data && \
 	sudo -u pretixuser make production
-RUN pip install pretix-fontpack-free install pretix-passbook pretix-sumup && \
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup
+RUN pip install pretix-fontpack-free install pretix-passbook && \
     python -m pretix migrate && \
     python -m pretix rebuild
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
