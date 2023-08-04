@@ -14,7 +14,6 @@ tar -cv --exclude "node_modules" \
   --exclude "doc" \
   --exclude "helm" \
   --exclude "data" \
-  --exclude "deployment" \
   --exclude "db.sqlite3" \
   --exclude "dkim.rsa" \
   --exclude "private" \
