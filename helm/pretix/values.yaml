@@ -80,8 +80,9 @@ service:
 
 ingress:
   ingressClassName: nginx
-  host: pretix.cluster.local
-  clusterIssuer: cert-ca-issuer
+  hosts:
+    - host: pretix.cluster.local
+      clusterIssuer: cert-ca-issuer
 
 
 resources: {}

@@ -2,18 +2,19 @@
 # © Ronan LE MEILLAT 2023
 # released under the GPLv3 terms
 #########################################################################
+{{- range .Values.ingress.hosts }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-      cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
+      cert-manager.io/cluster-issuer: {{ .clusterIssuer }}
   labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-  name: pretix-ingress
+    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}"
+  name: {{ print "pretix-ingress-" .host  | replace "." "-" }}
 spec:
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  ingressClassName: {{ $.Values.ingress.ingressClassName }}
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{.host }}
       http:
         paths:
           - backend:
@@ -25,5 +26,8 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - {{ .Values.ingress.host }}
-      secretName: pretix-cert
+        - {{ .host }}
+      secretName: {{ print "pretix-cert-" .host  | replace "." "-" }}
+---
+
+{{- end }}
