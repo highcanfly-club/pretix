@@ -4,10 +4,18 @@
 # released under the GPLv3 terms
 #########################################################################
 KANIKO_POD=$(kubectl -n $NAMESPACE get pods | grep "kaniko" | cut -d' ' -f1)
+BAD_RANDOM=$(echo $RANDOM$RANDOM$RANDOM$RANDOM | md5)
 echo "NAMESPACE=$NAMESPACE"
 kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
-kubectl -n $NAMESPACE delete pod $KANIKO_POD 2>/dev/null
+echo "CURRENT KANIKO POD is kaniko-$BAD_RANDOM"
+kubectl -n $NAMESPACE delete pod --wait=false $KANIKO_POD 2>/dev/null
 tar -cv --exclude "node_modules" \
+  --exclude "customization" \
+  --exclude "doc" \
+  --exclude "helm" \
+  --exclude "data" \
+  --exclude "deployment" \
+  --exclude "db.sqlite3" \
   --exclude "dkim.rsa" \
   --exclude "private" \
   --exclude "k8s" \
@@ -15,7 +23,7 @@ tar -cv --exclude "node_modules" \
   --exclude ".docker" \
   --exclude "_sensitive_datas" \
   --exclude "._*" \
-  --exclude "build" -f - . | gzip -9 | kubectl run -n $NAMESPACE kaniko \
+  --exclude "build" -f - . | gzip -9 | kubectl run -n $NAMESPACE kaniko-$BAD_RANDOM \
   --rm --stdin=true \
   --image=highcanfly/kaniko:latest --restart=Never \
   --overrides='{
