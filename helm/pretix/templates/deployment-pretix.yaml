@@ -31,8 +31,10 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
+            {{- with (first .Values.ingress.hosts) }}
             - name: PRETIX_HOST
-              value: {{ .Values.ingress.host }}
+              value: {{ .host }}
+            {{- end }}
             - name: MASTER_ADMIN_PASSWORD
               valueFrom:
                   secretKeyRef:
