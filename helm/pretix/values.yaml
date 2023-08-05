@@ -13,6 +13,7 @@ pvcpretix:
 postgresql:
   storage: 1Gi
   host: pgsql-server
+  port: 5432
   postgreuser: pretixuser
   postgrepass: pretixpass
   postgredb: pretixdb

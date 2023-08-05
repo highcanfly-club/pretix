@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.redisServer}}
+  name: {{ .Values.redisServer }}
 spec:
   selector:
     app: redis-server
@@ -9,5 +9,5 @@ spec:
   ports:
     - name: redis-port
       protocol: TCP
-      port: {{ .Values.redisPort}}
-      targetPort: {{ .Values.redisPort}}
+      port: {{ .Values.redisPort }}
+      targetPort: {{ .Values.redisPort }}

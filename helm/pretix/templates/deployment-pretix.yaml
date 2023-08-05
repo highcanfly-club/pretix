@@ -43,7 +43,7 @@ spec:
             - name: REDIS_SERVER
               value: {{ .Values.redisServer}}
             - name: REDIS_PORT
-              value: {{ .Values.redisPort}}
+              value: {{ .Values.redisPort|quote }}
             {{- if eq .Values.databaseBackend "postgres" }}
             - name: USE_POSTGRES_DB
               value: "1"
@@ -61,6 +61,8 @@ spec:
               value: {{ .Values.postgresql.postgredb }}
             - name: POSTGRES_HOST
               value: {{ .Values.postgresql.host }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.postgresql.port|quote }}  
             {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.DEVMODE }}

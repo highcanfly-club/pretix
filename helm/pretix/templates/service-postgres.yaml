@@ -9,5 +9,5 @@ spec:
   ports:
     - name: pgsql-port
       protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: {{ .Values.postgresql.port }}
+      targetPort: {{ .Values.postgresql.port }}

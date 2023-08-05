@@ -18,7 +18,7 @@ spec:
         image: postgres:12-bullseye
         ports:
           - name: pgsql-server
-            containerPort: 5432
+            containerPort: {{ .Values.postgresql.port }}
         volumeMounts:
           - name: lv-storage
             mountPath: /var/lib/posgresql
