@@ -50,4 +50,6 @@ fi
 #AUTOMIGRATE='skip'
 sed -i -e "s/make_password\('admin'\)/make_password\('$MASTER_ADMIN_PASSWORD'\)/g" /pretix/src/pretix/base/migrations/0001_initial.py
 chown -R pretixuser:pretixuser /data
+cd /pretix/src
+sudo -u pretixuser pretix collectstatic --noinput && sudo -u pretixuser pretix compress
 sudo -u pretixuser pretix all

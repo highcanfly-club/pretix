@@ -33,6 +33,7 @@ tar -cv --exclude "node_modules" \
       {
         "name": "kaniko",
         "image": "highcanfly/kaniko:latest",
+        "imagePullPolicy": "IfNotPresent",
         "stdin": true,
         "stdinOnce": true,
         "args": [
