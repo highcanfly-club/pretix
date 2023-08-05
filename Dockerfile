@@ -74,7 +74,7 @@ RUN chmod +x /usr/local/bin/pretix && \
     chown -R pretixuser:pretixuser /pretix /data data && \
 	sudo -u pretixuser make production
 RUN pip install pretix-fontpack-free install pretix-passbook
-RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup pretix-paybox
 #  && \
 #     python -m pretix migrate && \
 #     python -m pretix rebuild
