@@ -14,6 +14,7 @@ tar -cv --exclude "node_modules" \
   --exclude "doc" \
   --exclude "helm" \
   --exclude "data" \
+  --exclude ".venv" \
   --exclude "db.sqlite3" \
   --exclude "dkim.rsa" \
   --exclude "private" \
@@ -36,14 +37,14 @@ tar -cv --exclude "node_modules" \
         "stdinOnce": true,
         "args": [
           "-v","info",
-          "--cache=true",
+          "--cache=false",
           "--dockerfile=Dockerfile'$EXT'",
           "--context=tar://stdin",
           "--skip-tls-verify",
           "--destination='$EXPECTED_REF'",
           "--image-fs-extract-retry=3",
           "--push-retry=3",
-          "--use-new-run"
+          "--single-snapshot"
         ]
       }
     ],

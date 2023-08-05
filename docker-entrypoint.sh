@@ -35,7 +35,7 @@ backend=redis://$REDIS_SERVER:$REDIS_PORT/1
 from=NO-REPLY@$DOMAIN
 host=smtpd
 EOF
-if if [ -z ${USE_POSTGRES_DB+x} ]; then
+if [ -z ${USE_POSTGRES_DB+x} ]; then
 cat << EOF >> /etc/pretix/pretix.cfg
 
 [database]
