@@ -6,6 +6,7 @@ RUN apt-get update && \
             gettext \
             git \
             libffi-dev \
+            libcairo2 \
             libjpeg-dev \
             libmemcached-dev \
             libpq-dev \
