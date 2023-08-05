@@ -1,5 +1,12 @@
 #!/bin/bash
 echo "Docker entrypoint"
+PRETIX_HOST=${PRETIX_HOST:-'pretix.example.org'}
+POSTGRES_DB=${POSTGRES_DB:-'pretixdb'}
+POSTGRES_USER=${POSTGRES_USER:-'pretixuser'}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-'pretixpass'}
+POSTGRES_HOST=${POSTGRES_HOST:-'pgsql-server'}
+REDIS_SERVER=${REDIS_SERVER:-'redis-server'}
+REDIS_PORT=${REDIS_PORT:-'6379'}
 DOMAIN=`expr "$PRETIX_HOST" : '[^.][^.]*\.\(.*\)'`
 cat << EOF > /etc/pretix/pretix.cfg
 [pretix]
@@ -16,17 +23,28 @@ default=fr
 timezone=Europe/Paris
 
 [redis]
-location=redis://redis-server:6379/0
+location=redis://$REDIS_SERVER:$REDIS_PORT/0
 sessions=true
 
 [celery]
-broker=redis://redis-server:6379/1
-backend=redis://redis-server:6379/1
+broker=redis://$REDIS_SERVER:$REDIS_PORT/1
+backend=redis://$REDIS_SERVER:$REDIS_PORT/1
 
 [mail]
 from=NO-REPLY@$DOMAIN
 host=smtpd
 EOF
+if if [ -z ${USE_POSTGRES_DB+x} ]; then
+cat << EOF >> /etc/pretix/pretix.cfg
+
+[database]
+backend=postgresql
+name=$POSTGRES_DB
+user=$POSTGRES_USER
+password=$POSTGRES_PASSWORD
+host=$POSTGRES_HOST
+EOF
+fi
 #AUTOMIGRATE='skip'
 sed -i -e "s/make_password\('admin'\)/make_password\('$MASTER_ADMIN_PASSWORD'\)/g" /pretix/src/pretix/base/migrations/0001_initial.py
 chown -R pretixuser:pretixuser /data

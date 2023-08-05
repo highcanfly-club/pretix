@@ -4,10 +4,15 @@
 
 masterAdminPassword: admin  # this is the password on the first run for admin@localhost
 replicaCount: 1
+databaseBackend: sqlite3 # or postgres
+redisServer: redis-server
+redisPort: 6379
 pvcpretix:
   storage: 512Mi
+  accessModes: ReadWriteOnce
 postgresql:
   storage: 1Gi
+  host: pgsql-server
   postgreuser: pretixuser
   postgrepass: pretixpass
   postgredb: pretixdb

@@ -9,7 +9,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.pvcpretix.accessModes }}
   resources:
     requests:
       storage: {{ .Values.pvcpretix.storage }}

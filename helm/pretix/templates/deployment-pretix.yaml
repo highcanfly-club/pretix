@@ -40,6 +40,28 @@ spec:
                   secretKeyRef:
                     key: password
                     name: pretix-credentials
+            - name: REDIS_SERVER
+              value: {{ .Values.redisServer}}
+            - name: REDIS_PORT
+              value: {{ .Values.redisPort}}
+            {{- if eq .Values.databaseBackend "postgres" }}
+            - name: USE_POSTGRES_DB
+              value: "1"
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    key: user
+                    name: postgres-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: postgres-credentials
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.postgredb }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgresql.host }}
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.DEVMODE }}
           command: ["/bin/sh","-c"]
