@@ -139,9 +139,14 @@ if USE_DATABASE_TLS or USE_DATABASE_MTLS:
 
     db_options.update(tls_config)
 
+if db_backend in ['postgresql', 'sqlite3', 'mysql', 'oracle']:
+    engine = 'django.db.backends.' + db_backend
+else:
+    engine = db_backend
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.' + db_backend,
+        'ENGINE': engine,
         'NAME': config.get('database', 'name', fallback=os.path.join(DATA_DIR, 'db.sqlite3')),
         'USER': config.get('database', 'user', fallback=''),
         'PASSWORD': config.get('database', 'password', fallback=''),
@@ -157,7 +162,7 @@ DATABASE_REPLICA = 'default'
 if config.has_section('replica'):
     DATABASE_REPLICA = 'replica'
     DATABASES['replica'] = {
-        'ENGINE': 'django.db.backends.' + db_backend,
+        'ENGINE': engine,
         'NAME': config.get('replica', 'name', fallback=DATABASES['default']['NAME']),
         'USER': config.get('replica', 'user', fallback=DATABASES['default']['USER']),
         'PASSWORD': config.get('replica', 'password', fallback=DATABASES['default']['PASSWORD']),
