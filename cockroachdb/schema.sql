@@ -2942,7 +2942,7 @@ ALTER TABLE public.pretixbase_checkin OWNER TO pretixuser;
 --
 
 CREATE TABLE public.pretixbase_checkinlist (
-    id integer NOT NULL,
+    id integer DEFAULT nextval('public.pretixbase_checkinlist_id_seq'),
     name character varying(190) NOT NULL,
     all_products boolean NOT NULL,
     event_id integer NOT NULL,
