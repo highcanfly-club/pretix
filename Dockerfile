@@ -75,7 +75,8 @@ RUN chmod +x /usr/local/bin/pretix && \
 	sudo -u pretixuser make production
 RUN pip install django-cockroachdb==4.1.*
 RUN pip install pretix-fontpack-free install pretix-passbook
-RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup pretix-paybox
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup 
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-paybox
 #  && \
 #     python -m pretix migrate && \
 #     python -m pretix rebuild
