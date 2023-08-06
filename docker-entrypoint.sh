@@ -8,8 +8,8 @@ POSTGRES_HOST=${POSTGRES_HOST:-'pgsql-server'}
 POSTGRES_PORT=${POSTGRES_PORT:-'5432'}
 REDIS_SERVER=${REDIS_SERVER:-'redis-server'}
 REDIS_PORT=${REDIS_PORT:-'6379'}
-DOMAIN=`expr "$PRETIX_HOST" : '[^.][^.]*\.\(.*\)'`
-cat << EOF > /etc/pretix/pretix.cfg
+DOMAIN=$(expr "$PRETIX_HOST" : '[^.][^.]*\.\(.*\)')
+cat <<EOF >/etc/pretix/pretix.cfg
 [pretix]
 instance_name=$PRETIX_HOST
 currency=EUR
@@ -36,7 +36,18 @@ from=NO-REPLY@$DOMAIN
 host=smtpd
 EOF
 if [ -z ${USE_POSTGRES_DB+x} ]; then
-cat << EOF >> /etc/pretix/pretix.cfg
+    cat <<EOF >>/etc/pretix/pretix.cfg
+
+#[database]
+#backend=postgresql
+#name=$POSTGRES_DB
+#user=$POSTGRES_USER
+#password=$POSTGRES_PASSWORD
+#host=$POSTGRES_HOST
+#port=$POSTGRES_PORT
+EOF
+else
+    cat <<EOF >>/etc/pretix/pretix.cfg
 
 [database]
 backend=postgresql

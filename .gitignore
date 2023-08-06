@@ -26,5 +26,5 @@ local/
 .DS_Store
 
 
-_values.yaml
+_values*.yaml
 .vscode/settings.json
