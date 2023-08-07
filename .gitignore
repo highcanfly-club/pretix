@@ -28,3 +28,4 @@ local/
 
 _values*.yaml
 .vscode/settings.json
+pretix.cfg

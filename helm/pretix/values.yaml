@@ -4,7 +4,7 @@
 
 masterAdminPassword: admin  # this is the password on the first run for admin@localhost
 replicaCount: 1
-databaseBackend: sqlite3 # or postgres
+databaseBackend: sqlite3 # or postgres or cockroachdb
 redisServer: redis-server
 redisPort: 6379
 pvcpretix:
@@ -17,7 +17,12 @@ postgresql:
   postgreuser: pretixuser
   postgrepass: pretixpass
   postgredb: pretixdb
-
+cockroachdb:
+  host: clustername.cockroachlabs.cloud
+  port: 5432
+  postgreuser: pretixuser
+  postgrepass: pretixpass
+  postgredb: pretixdb
 image:
   repository: highcanfly/pretix
   pullPolicy: IfNotPresent

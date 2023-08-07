@@ -35,7 +35,7 @@ backend=redis://$REDIS_SERVER:$REDIS_PORT/1
 from=NO-REPLY@$DOMAIN
 host=smtpd
 EOF
-if [ -z ${USE_POSTGRES_DB+x} ]; then
+if [ -z ${USE_POSTGRES_DB+x} ] && [ -z ${USE_COCKROACH_DB+x} ]; then
     cat <<EOF >>/etc/pretix/pretix.cfg
 
 #[database]
@@ -46,11 +46,24 @@ if [ -z ${USE_POSTGRES_DB+x} ]; then
 #host=$POSTGRES_HOST
 #port=$POSTGRES_PORT
 EOF
-else
+fi
+if [ "$USE_POSTGRES_DB" = "1" ]; then
     cat <<EOF >>/etc/pretix/pretix.cfg
 
 [database]
 backend=postgresql
+name=$POSTGRES_DB
+user=$POSTGRES_USER
+password=$POSTGRES_PASSWORD
+host=$POSTGRES_HOST
+port=$POSTGRES_PORT
+EOF
+fi
+if [ "$USE_COCKROACH_DB" = "1" ]; then
+    cat <<EOF >>/etc/pretix/pretix.cfg
+
+[database]
+backend=django_cockroachdb
 name=$POSTGRES_DB
 user=$POSTGRES_USER
 password=$POSTGRES_PASSWORD

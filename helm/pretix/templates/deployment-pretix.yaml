@@ -64,6 +64,26 @@ spec:
             - name: POSTGRES_PORT
               value: {{ .Values.postgresql.port|quote }}  
             {{- end }}
+            {{- if eq .Values.databaseBackend "cockroachdb" }}
+            - name: USE_COCKROACH_DB
+              value: "1"
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    key: user
+                    name: postgres-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: postgres-credentials
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.postgredb }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgresql.host }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.postgresql.port|quote }}  
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.DEVMODE }}
           command: ["/bin/sh","-c"]

@@ -1,6 +1,7 @@
 # © Ronan LE MEILLAT 2023
 # released under the GPLv3 terms
 #########################################################################
+{{- if eq .Values.databaseBackend "postgres" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -13,3 +14,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.postgresql.storage }}
+{{- end}}
