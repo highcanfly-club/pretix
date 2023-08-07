@@ -77,10 +77,7 @@ RUN pip install django-cockroachdb==4.1.*
 RUN pip install pretix-fontpack-free install pretix-passbook
 RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup 
 RUN DJANGO_SETTINGS_MODULE="" pip install pretix-paybox
-RUN cd /pretix/src && python manage.py collectstatic && python manage.py compress
-#  && \
-#     python -m pretix migrate && \
-#     python -m pretix rebuild
+RUN python -m pretix collectstatic --no-input && python -m pretix compress
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 # Development
 # COPY pretix-sumup /pretix-sumup
