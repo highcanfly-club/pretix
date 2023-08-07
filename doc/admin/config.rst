@@ -158,7 +158,7 @@ Example::
     sslkey=/etc/pretix/postgresql-client-key.key
 
 ``backend``
-    One of ``sqlite3`` and ``postgresql``.
+    One of ``sqlite3``, ``django_cockroachdb`` and ``postgresql``.
     Default: ``sqlite3``.
 
 ``name``
