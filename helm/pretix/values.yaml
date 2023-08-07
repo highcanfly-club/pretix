@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 masterAdminPassword: admin  # this is the password on the first run for admin@localhost
+useCookieDomain: false
 replicaCount: 1
 databaseBackend: sqlite3 # or postgres or cockroachdb
 redisServer: redis-server

@@ -14,7 +14,13 @@ cat <<EOF >/etc/pretix/pretix.cfg
 instance_name=$PRETIX_HOST
 currency=EUR
 url=https://$PRETIX_HOST
+EOF
+if [ "$USE_COOKIE_DOMAIN" == "1" ]; then
+cat <<EOF >>/etc/pretix/pretix.cfg
 cookie_domain=.$DOMAIN
+EOF
+fi
+cat <<EOF >>/etc/pretix/pretix.cfg
 datadir=/data
 trust_x_forwarded_for=on
 trust_x_forwarded_proto=on
