@@ -78,11 +78,11 @@ spec:
                     key: password
                     name: postgres-credentials
             - name: POSTGRES_DB
-              value: {{ .Values.postgresql.postgredb }}
+              value: {{ .Values.cockroachdb.postgredb }}
             - name: POSTGRES_HOST
-              value: {{ .Values.postgresql.host }}
+              value: {{ .Values.cockroachdb.host }}
             - name: POSTGRES_PORT
-              value: {{ .Values.postgresql.port|quote }}  
+              value: {{ .Values.cockroachdb.port|quote }}  
             {{- end }}
             - name: USE_COOKIE_DOMAIN
               value: {{ ternary "1" "0" .Values.useCookieDomain | quote}}
