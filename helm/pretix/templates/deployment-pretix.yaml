@@ -85,7 +85,7 @@ spec:
               value: {{ .Values.postgresql.port|quote }}  
             {{- end }}
             - name: USE_COOKIE_DOMAIN
-              value: {{ ternary "1" "0" .Values.useCookieDomain }}
+              value: {{ ternary "1" "0" .Values.useCookieDomain | quote}}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.DEVMODE }}
           command: ["/bin/sh","-c"]
