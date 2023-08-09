@@ -270,9 +270,9 @@ class Order(LockModel, LoggedModel):
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
         ordering = ("-datetime", "-pk")
-        index_together = [
-            ["datetime", "id"],
-            ["last_modified", "id"],
+        indexes = [
+            models.Index(fields=["datetime", "id"]),
+            models.Index(fields=["last_modified", "id"]),
         ]
 
     def __str__(self):
@@ -1676,7 +1676,7 @@ class OrderPayment(models.Model):
         """
         Marks the order as failed and sets info to ``info``, but only if the order is in ``created`` or ``pending``
         state. This is equivalent to setting ``state`` to ``OrderPayment.PAYMENT_STATE_FAILED`` and logging a failure,
-        but it adds strong database logging since we do not want to report a failure for an order that has just
+        but it adds strong database locking since we do not want to report a failure for an order that has just
         been marked as paid.
         :param send_mail: Whether an email should be sent to the user about this event (default: ``True``).
         """
@@ -2756,8 +2756,8 @@ class Transaction(models.Model):
 
     class Meta:
         ordering = 'datetime', 'pk'
-        index_together = [
-            ['datetime', 'id']
+        indexes = [
+            models.Index(fields=['datetime', 'id'])
         ]
 
     def save(self, *args, **kwargs):
