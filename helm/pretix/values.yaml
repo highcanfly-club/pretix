@@ -8,6 +8,7 @@ replicaCount: 1
 databaseBackend: sqlite3 # or postgres or cockroachdb
 redisServer: redis-server
 redisPort: 6379
+updateStrategy: RollingUpdate # Recreate
 pvcpretix:
   storage: 512Mi
   accessModes: ReadWriteOnce
