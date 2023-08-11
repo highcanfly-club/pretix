@@ -20,7 +20,7 @@ allow_k8s_contexts('kubernetesOCI')
 yaml = helm(
   'helm/pretix',
   # The release name, equivalent to helm --name
-  name='pretix-4.20',
+  name='pretix-4.21',
   # The namespace to install in, equivalent to helm --namespace
   namespace='pretix',
   # The values file to substitute into the chart.
