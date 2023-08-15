@@ -77,6 +77,7 @@ RUN pip install django-cockroachdb==4.2
 RUN pip install pretix-fontpack-free pretix-passbook
 RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup 
 RUN DJANGO_SETTINGS_MODULE="" pip install pretix-paybox
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-monetico
 RUN python -m pretix collectstatic --no-input && python -m pretix compress
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 # Development
