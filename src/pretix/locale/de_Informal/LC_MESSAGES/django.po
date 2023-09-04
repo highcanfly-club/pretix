@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-27 11:49+0000\n"
-"PO-Revision-Date: 2023-07-28 09:11+0000\n"
-"Last-Translator: Raphael Michel <michel@rami.io>\n"
+"PO-Revision-Date: 2023-08-16 22:00+0000\n"
+"Last-Translator: Felix Hartnagel <felix@fhcom.de>\n"
 "Language-Team: German (informal) <https://translate.pretix.eu/projects/"
 "pretix/pretix/de_Informal/>\n"
 "Language: de_Informal\n"
@@ -28055,8 +28055,8 @@ msgstr[0] "%(count)d Tag vor Veranstaltungsbeginn um %(time)s"
 msgstr[1] "%(count)d Tage vor Veranstaltungsbeginn um %(time)s"
 
 #: pretix/plugins/sendmail/signals.py:99
-msgid "Automated emails"
-msgstr "Automatisierte E-Mails"
+msgid "Scheduled emails"
+msgstr "Geplante E-Mails"
 
 #: pretix/plugins/sendmail/signals.py:122
 msgid "Mass email was sent to customers or attendees."
@@ -28135,9 +28135,9 @@ msgstr "Neue Regel erstellen"
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_inspect.html:14
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_list.html:15
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_update.html:10
-msgid "Automated emails are not sent as long as your ticket shop is offline."
+msgid "Scheduled emails are not sent as long as your ticket shop is offline."
 msgstr ""
-"Automatische E-Mails werden nicht verschickt, solange Ihr Ticketshop offline "
+"Geplante E-Mails werden nicht verschickt, solange Ihr Ticketshop offline "
 "ist."
 
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_create.html:44
@@ -28188,8 +28188,8 @@ msgstr "Letzte Berechnung"
 
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_list.html:4
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_list.html:6
-msgid "Automated email rules"
-msgstr "Regeln für automatisierte E-Mails"
+msgid "Scheduled email rules"
+msgstr "Regeln für geplante E-Mails"
 
 #: pretix/plugins/sendmail/templates/pretixplugins/sendmail/rule_list.html:8
 msgid ""
@@ -31019,7 +31019,7 @@ msgstr ""
 #: pretix/presale/templates/pretixpresale/event/order.html:43
 msgid "Please note that we still await your payment to complete the process."
 msgstr ""
-"Bitte beachten Sie, dass wir noch deine Zahlung erwarten, um den Prozess "
+"Bitte beachte, dass wir noch deine Zahlung erwarten, um den Prozess "
 "abzuschließen."
 
 #: pretix/presale/templates/pretixpresale/event/order.html:55
