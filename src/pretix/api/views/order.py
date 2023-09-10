@@ -116,12 +116,16 @@ with scopes_disabled():
 
         @scopes_disabled()
         def subevent_after_qs(self, qs, name, value):
+            if getattr(self.request, 'event', None):
+                subevents = self.request.event.subevents
+            else:
+                subevents = SubEvent.objects.filter(event__organizer=self.request.organizer)
+
             qs = qs.filter(
                 pk__in=Subquery(
                     OrderPosition.all.filter(
-                        subevent_id__in=SubEvent.objects.filter(
+                        subevent_id__in=subevents.filter(
                             Q(date_to__gt=value) | Q(date_from__gt=value, date_to__isnull=True),
-                            event=self.request.event
                         ).values_list('id'),
                     ).values_list('order_id')
                 )
@@ -129,12 +133,16 @@ with scopes_disabled():
             return qs
 
         def subevent_before_qs(self, qs, name, value):
+            if getattr(self.request, 'event', None):
+                subevents = self.request.event.subevents
+            else:
+                subevents = SubEvent.objects.filter(event__organizer=self.request.organizer)
+
             qs = qs.filter(
                 pk__in=Subquery(
                     OrderPosition.all.filter(
-                        subevent_id__in=SubEvent.objects.filter(
+                        subevent_id__in=subevents.filter(
                             Q(date_from__lt=value),
-                            event=self.request.event
                         ).values_list('id'),
                     ).values_list('order_id')
                 )
@@ -290,12 +298,12 @@ class OrganizerOrderViewSet(OrderViewSetMixin, viewsets.ReadOnlyModelViewSet):
         if isinstance(self.request.auth, (TeamAPIToken, Device)):
             return Order.objects.filter(
                 event__organizer=self.request.organizer,
-                event__in=self.request.auth.get_events_with_permission(perm)
+                event__in=self.request.auth.get_events_with_permission(perm, request=self.request)
             )
         elif self.request.user.is_authenticated:
             return Order.objects.filter(
                 event__organizer=self.request.organizer,
-                event__in=self.request.user.get_events_with_permission(perm)
+                event__in=self.request.user.get_events_with_permission(perm, request=self.request)
             )
         else:
             raise PermissionDenied()
@@ -1821,12 +1829,12 @@ class InvoiceViewSet(viewsets.ReadOnlyModelViewSet):
         elif isinstance(self.request.auth, (TeamAPIToken, Device)):
             qs = Invoice.objects.filter(
                 event__organizer=self.request.organizer,
-                event__in=self.request.auth.get_events_with_permission(perm)
+                event__in=self.request.auth.get_events_with_permission(perm, request=self.request)
             )
         elif self.request.user.is_authenticated:
             qs = Invoice.objects.filter(
                 event__organizer=self.request.organizer,
-                event__in=self.request.user.get_events_with_permission(perm)
+                event__in=self.request.user.get_events_with_permission(perm, request=self.request)
             )
         return qs.prefetch_related('lines').select_related('order', 'refers').annotate(
             nr=Concat('prefix', 'invoice_no')
