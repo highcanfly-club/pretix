@@ -22,6 +22,7 @@ RUN apt-get update && \
             libmaxminddb0 \
             libmaxminddb-dev \
             zlib1g-dev && \
+    apt dist-upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     dpkg-reconfigure locales && \
