@@ -262,12 +262,12 @@ CACHE_LARGE_VALUES_ALIAS = 'default'
 
 # Allowed file extensions for various places plus matching Pillow formats.
 # Never allow EPS, it is full of dangerous bugs.
-FILE_UPLOAD_EXTENSIONS_IMAGE = (".png", ".jpg", ".gif", ".jpeg")
+FILE_UPLOAD_EXTENSIONS_IMAGE = (".png", ".jpg", ".gif", ".jpeg", ".svg")
 PILLOW_FORMATS_IMAGE = ('PNG', 'GIF', 'JPEG')
 
-FILE_UPLOAD_EXTENSIONS_FAVICON = (".ico", ".png", "jpg", ".gif", ".jpeg")
+FILE_UPLOAD_EXTENSIONS_FAVICON = (".ico", ".png", "jpg", ".gif", ".jpeg", ".svg")
 
-FILE_UPLOAD_EXTENSIONS_QUESTION_IMAGE = (".png", "jpg", ".gif", ".jpeg", ".bmp", ".tif", ".tiff", ".jfif")
+FILE_UPLOAD_EXTENSIONS_QUESTION_IMAGE = (".png", "jpg", ".gif", ".jpeg", ".bmp", ".tif", ".tiff", ".jfif", ".svg")
 PILLOW_FORMATS_QUESTIONS_IMAGE = ('PNG', 'GIF', 'JPEG', 'BMP', 'TIFF')
 
 FILE_UPLOAD_EXTENSIONS_EMAIL_ATTACHMENT = (
