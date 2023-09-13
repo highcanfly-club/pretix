@@ -2803,7 +2803,7 @@ Your {organizer} team"""))  # noqa: W291
         'serializer_class': UploadedFileField,
         'serializer_kwargs': dict(
             allowed_types=[
-                'image/png', 'image/jpeg', 'image/gif'
+                'image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'
             ],
             max_size=settings.FILE_UPLOAD_MAX_SIZE_IMAGE,
         )
@@ -2846,7 +2846,7 @@ Your {organizer} team"""))  # noqa: W291
         'serializer_class': UploadedFileField,
         'serializer_kwargs': dict(
             allowed_types=[
-                'image/png', 'image/jpeg', 'image/gif'
+                'image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'
             ],
             max_size=settings.FILE_UPLOAD_MAX_SIZE_IMAGE,
         )
@@ -2886,7 +2886,7 @@ Your {organizer} team"""))  # noqa: W291
         'serializer_class': UploadedFileField,
         'serializer_kwargs': dict(
             allowed_types=[
-                'image/png', 'image/jpeg', 'image/gif'
+                'image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'
             ],
             max_size=settings.FILE_UPLOAD_MAX_SIZE_IMAGE,
         )
@@ -2905,7 +2905,7 @@ Your {organizer} team"""))  # noqa: W291
         'serializer_class': UploadedFileField,
         'serializer_kwargs': dict(
             allowed_types=[
-                'image/png', 'image/jpeg', 'image/gif'
+                'image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'
             ],
             max_size=settings.FILE_UPLOAD_MAX_SIZE_IMAGE,
         )

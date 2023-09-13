@@ -1,0 +1,15 @@
+{{- if eq .Values.databaseBackend "postgres" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.postgresql.host }}
+spec:
+  selector:
+    app: pgsql-server
+  type: LoadBalancer
+  ports:
+    - name: pgsql-port
+      protocol: TCP
+      port: {{ .Values.postgresql.port }}
+      targetPort: {{ .Values.postgresql.port }}
+{{- end}}

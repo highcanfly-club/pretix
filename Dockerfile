@@ -1,11 +1,12 @@
 FROM python:3.11-bookworm
 
-RUN apt-get update && \
+RUN apt-get update && \ 
     apt-get install -y --no-install-recommends \
             build-essential \
             gettext \
             git \
             libffi-dev \
+            libcairo2 \
             libjpeg-dev \
             libmemcached-dev \
             libpq-dev \
@@ -23,6 +24,7 @@ RUN apt-get update && \
             zlib1g-dev \
             nodejs  \
             npm && \
+    apt dist-upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     dpkg-reconfigure locales &&  \
@@ -34,7 +36,6 @@ RUN apt-get update && \
     echo 'pretixuser ALL=(ALL) NOPASSWD:SETENV: /usr/bin/supervisord' >> /etc/sudoers && \
     mkdir /static && \
     mkdir /etc/supervisord
-
 
 ENV LC_ALL=C.UTF-8 \
     DJANGO_SETTINGS_MODULE=production_settings
@@ -63,13 +64,24 @@ RUN pip3 install -U \
 RUN chmod +x /usr/local/bin/pretix && \
     rm /etc/nginx/sites-enabled/default && \
     cd /pretix/src && \
-    rm -f pretix.cfg &&  \
-    mkdir -p data && \
-    chown -R pretixuser:pretixuser /pretix /data data &&  \
-    sudo -u pretixuser make production
-
-USER pretixuser
+    rm -f pretix.cfg && \
+	mkdir -p data && \
+    chown -R pretixuser:pretixuser /pretix /data data && \
+	sudo -u pretixuser make production
+RUN pip install django-cockroachdb==4.2
+RUN pip install pretix-fontpack-free pretix-passbook
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-sumup 
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-paybox
+RUN DJANGO_SETTINGS_MODULE="" pip install pretix-monetico
+RUN python -m pretix collectstatic --no-input && python -m pretix compress
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+# Development
+# COPY pretix-sumup /pretix-sumup
+# RUN cd /pretix-sumup && python setup.py develop
+# end
+RUN chmod ugo+x /usr/local/bin/docker-entrypoint.sh
+# USER pretixuser
 VOLUME ["/etc/pretix", "/data"]
 EXPOSE 80
-ENTRYPOINT ["pretix"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["all"]

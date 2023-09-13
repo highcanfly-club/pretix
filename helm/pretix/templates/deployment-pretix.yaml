@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pretix.fullname" . }}
+  labels:
+    {{- include "pretix.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
+  selector:
+    matchLabels:
+      {{- include "pretix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "pretix.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            {{- with (first .Values.ingress.hosts) }}
+            - name: PRETIX_HOST
+              value: {{ .host }}
+            {{- end }}
+            - name: MASTER_ADMIN_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: pretix-credentials
+            - name: REDIS_SERVER
+              value: {{ .Values.redisServer}}
+            - name: REDIS_PORT
+              value: {{ .Values.redisPort|quote }}
+            {{- if eq .Values.databaseBackend "postgres" }}
+            - name: USE_POSTGRES_DB
+              value: "1"
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    key: user
+                    name: postgres-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: postgres-credentials
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.postgredb }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgresql.host }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.postgresql.port|quote }}  
+            {{- end }}
+            {{- if eq .Values.databaseBackend "cockroachdb" }}
+            - name: USE_COCKROACH_DB
+              value: "1"
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    key: user
+                    name: postgres-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: postgres-credentials
+            - name: POSTGRES_DB
+              value: {{ .Values.cockroachdb.postgredb }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.cockroachdb.host }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.cockroachdb.port|quote }}  
+            {{- end }}
+            - name: USE_COOKIE_DOMAIN
+              value: {{ ternary "1" "0" .Values.useCookieDomain | quote}}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.DEVMODE }}
+          command: ["/bin/sh","-c"]
+          args: ["sleep infinity"]
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: lv-storage
+              mountPath: /data
+          {{- if .Values.HEALTHCHECK }}
+          livenessProbe:
+            initialDelaySeconds: {{ .Values.image.startingTime}}
+            httpGet:
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
+          readinessProbe:
+            initialDelaySeconds: {{ .Values.image.startingTime}}
+            httpGet:
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: lv-storage
+          persistentVolumeClaim:
+            claimName: pvc-pretix
