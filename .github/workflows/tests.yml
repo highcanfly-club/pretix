@@ -2,12 +2,12 @@ name: Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ hcf ]
     paths-ignore:
       - 'doc/**'
       - 'src/pretix/locale/**'
   pull_request:
-    branches: [ master ]
+    branches: [ hcf ]
     paths-ignore:
       - 'doc/**'
       - 'src/pretix/locale/**'
@@ -20,7 +20,7 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted # ubuntu-22.04
     name: Tests
     strategy:
       matrix:

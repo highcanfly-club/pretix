@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ hcf ]
     paths-ignore:
       - 'doc/**'
       - 'src/pretix/locale/**'
@@ -20,7 +20,7 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted # ubuntu-22.04
     name: Packaging
     strategy:
       matrix:
