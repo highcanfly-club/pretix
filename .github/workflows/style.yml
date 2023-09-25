@@ -21,7 +21,8 @@ env:
 jobs:
   isort:
     name: isort
-    runs-on: self-hosted # ubuntu-22.04
+    runs-on: # ubuntu-22.04
+      group: oci-runners
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.11

@@ -20,7 +20,8 @@ env:
 
 jobs:
   test:
-    runs-on: self-hosted # ubuntu-22.04
+    runs-on: # ubuntu-22.04
+      group: oci-runners
     name: Tests
     strategy:
       matrix:
